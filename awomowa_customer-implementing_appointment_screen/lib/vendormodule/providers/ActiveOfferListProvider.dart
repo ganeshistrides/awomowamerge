@@ -31,7 +31,11 @@ class ActiveOfferListProvider extends ChangeNotifier {
 
     if (offerListResponse.histories == null) {
       isEmpty = true;
-    } else {
+    }
+    /*else if(offerListResponse.nextPageNo == offerListResponse.c){
+
+    }*/
+    else {
       isEmpty = false;
     }
 
@@ -45,8 +49,5 @@ class ActiveOfferListProvider extends ChangeNotifier {
     }
 
     notifyListeners();
-  }
-  pageend(){
-
   }
 }

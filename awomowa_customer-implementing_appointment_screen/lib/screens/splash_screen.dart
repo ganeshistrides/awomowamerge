@@ -1,11 +1,16 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:awomowa/app/theme.dart';
 import 'package:awomowa/screens/register_screen.dart';
 import 'package:awomowa/utils/SharedPreferences.dart';
+import 'package:awomowa/vendormodule/providers/VendorDetailsProvider.dart';
+import 'package:awomowa/vendormodule/screens/approval_screen.dart';
+import 'package:awomowa/vendormodule/screens/splash_screen.dart'
+    as Splashscreen;
+import 'package:awomowa/vendormodule/screens/user_register_screen.dart';
 import 'package:awomowa/widgets/splash_screen_bg.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'home_screen.dart';
 import 'login_screen.dart';
@@ -63,9 +68,29 @@ class _SplashScreenState extends State<SplashScreen>
         Navigator.pushNamedAndRemoveUntil<dynamic>(
           context,
           HomeScreen.routeName,
-          (route) => false, //if you want to disable back feature set to false
+          (route) => false,
+          //if you want to disable back feature set to false
         );
       } else {
+        // checkLoginStatus();
+        _slideInController.forward();
+        Timer(Duration(milliseconds: 500), () {
+          setState(() {
+            _buttonsSlideInController.forward().whenComplete(() {
+              _bgVisibility = true;
+              setState(() {});
+            });
+          });
+        });
+      }
+
+      if (await prefManger.getVendorLoggedIn()) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Splashscreen.SplashScreen()),
+        );
+      } else {
+        // checkLoginStatus();
         _slideInController.forward();
         Timer(Duration(milliseconds: 500), () {
           setState(() {
@@ -208,5 +233,39 @@ class _SplashScreenState extends State<SplashScreen>
         ],
       ),
     );
+  }
+
+  Future<void> checkLoginStatus() async {
+    VendorDetailsProvider vendorDetailsProvider =
+        Provider.of<VendorDetailsProvider>(context, listen: false);
+    await vendorDetailsProvider.getVendorDetails();
+
+    if (vendorDetailsProvider.vendorDetailsResponse.status == 'success') {
+      if (vendorDetailsProvider
+              .vendorDetailsResponse.merchantInformations.registrationStatus ==
+          'registrationCompleted') {
+        // Navigator.popAndPushNamed(context, PackageScreen.routeName);
+        Navigator.popAndPushNamed(context, ApprovalScreen.routeName);
+      } else if (vendorDetailsProvider
+              .vendorDetailsResponse.merchantInformations.registrationStatus ==
+          'adminApprovalCompleted') {
+        Navigator.popAndPushNamed(context, UserDetailsScreen.routeName);
+      } else if (vendorDetailsProvider
+              .vendorDetailsResponse.merchantInformations.registrationStatus ==
+          'shopProfileCompleted') {
+        Navigator.popAndPushNamed(context, HomeScreen.routeName);
+      } else if (vendorDetailsProvider
+              .vendorDetailsResponse.merchantInformations.registrationStatus ==
+          'adminDeclined') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => ApprovalScreen(isDeclined: true),
+          ),
+        );
+      }
+    } else {
+      Navigator.popAndPushNamed(context, LoginScreen.routeName);
+    }
   }
 }

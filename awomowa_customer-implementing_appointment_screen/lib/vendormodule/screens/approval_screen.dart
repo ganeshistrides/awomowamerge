@@ -116,7 +116,7 @@ class ApprovalScreen extends StatelessWidget {
       if (vendorDetailsProvider
               .vendorDetailsResponse.merchantInformations.registrationStatus ==
           'registrationCompleted') {
-        // Navigator.popAndPushNamed(context, PackageScreen.routeName);
+        Navigator.popAndPushNamed(context, PackageScreen.routeName);
         showSnackBar('Approval Pending !', context);
       } else if (vendorDetailsProvider
               .vendorDetailsResponse.merchantInformations.registrationStatus ==

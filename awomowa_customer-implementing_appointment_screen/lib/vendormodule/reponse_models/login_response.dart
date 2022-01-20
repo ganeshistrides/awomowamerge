@@ -42,6 +42,7 @@ class MerchantInformations {
   String registrationStatus;
   String shopAddress;
   String authKey;
+  String userType;
 
   MerchantInformations(
       {this.merchantId,
@@ -60,7 +61,8 @@ class MerchantInformations {
       this.shopLogo,
       this.registrationStatus,
       this.shopAddress,
-      this.authKey});
+      this.authKey,
+      this.userType});
 
   MerchantInformations.fromJson(Map<String, dynamic> json) {
     merchantId = json['merchantId'];
@@ -80,6 +82,7 @@ class MerchantInformations {
     registrationStatus = json['registrationStatus'];
     shopAddress = json['ShopAddress'];
     authKey = json['authKey'];
+    userType = json['userType'];
   }
 
   Map<String, dynamic> toJson() {
@@ -101,6 +104,7 @@ class MerchantInformations {
     data['registrationStatus'] = this.registrationStatus;
     data['ShopAddress'] = this.shopAddress;
     data['authKey'] = this.authKey;
+    data['userType'] = this.userType;
     return data;
   }
 }

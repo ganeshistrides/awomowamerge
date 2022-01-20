@@ -321,12 +321,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                       .routeName);
                                             },
                                             child: Text(
-                                              ' Customer Signup',
+                                              ' Customer Sign up',
                                               style: TextStyle(
-                                                  color: AppTheme.themeColor,
-                                                  decoration:
+                                                color: AppTheme.themeColor,
+                                                /*  decoration:
                                                       TextDecoration.underline,
-                                                  fontWeight: FontWeight.w800),
+                                                  fontWeight: FontWeight.w800*/
+                                              ),
                                             ),
                                           )
                                         ]),
@@ -418,6 +419,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (signUpProvider.signUpResponse['status'] == 'success') {
       SharedPrefManager prefManger = SharedPrefManager();
+      await prefManger.setVendorLoggedIn(true);
       await prefManger
           .setvendorAuthKey(signUpProvider.signUpResponse['authKey']);
       await prefManger.setVendorEmail(emailController.text);

@@ -14,6 +14,7 @@ import 'package:awomowa/model/OfferListProvider.dart';
 import 'package:awomowa/model/ShopOfferProvider.dart';
 import 'package:awomowa/model/SignUpProvider.dart';
 import 'package:awomowa/model/UpdateDetailsProvider.dart';
+import 'package:awomowa/screens/about_us _screen.dart';
 import 'package:awomowa/screens/about_us%20_screen.dart';
 import 'package:awomowa/screens/add_shop_screen.dart';
 import 'package:awomowa/screens/appointment_list_screen.dart';
@@ -35,6 +36,7 @@ import 'package:awomowa/screens/shop_details_screen.dart';
 import 'package:awomowa/screens/splash_screen.dart';
 import 'package:awomowa/screens/update_details_screen.dart';
 import 'package:awomowa/screens/welcome_screen.dart';
+import 'package:awomowa/utils/SharedPreferences.dart';
 import 'package:awomowa/utils/app_constants.dart';
 import 'package:awomowa/vendormodule/providers/AboutUsProvider.dart'
     as Aboutusprovider;
@@ -50,9 +52,6 @@ import 'package:awomowa/vendormodule/providers/LoginProvider.dart'
     as Loginprovider;
 import 'package:awomowa/vendormodule/providers/ManageOffersProvider.dart';
 import 'package:awomowa/vendormodule/providers/PackageDetailsProvider.dart';
-import 'package:awomowa/screens/about_us _screen.dart';
-import 'package:awomowa/vendormodule/screens/about_us _screen.dart' as Aboutusscreen;
-
 import 'package:awomowa/vendormodule/providers/SettingsProvider.dart';
 import 'package:awomowa/vendormodule/providers/SignUpProvider.dart'
     as Signupprovider;
@@ -62,6 +61,8 @@ import 'package:awomowa/vendormodule/providers/TransactionHistoryProvider.dart';
 import 'package:awomowa/vendormodule/providers/UpdateListProvider.dart';
 import 'package:awomowa/vendormodule/providers/UserDetailsProvider.dart';
 import 'package:awomowa/vendormodule/providers/VendorDetailsProvider.dart';
+import 'package:awomowa/vendormodule/screens/about_us _screen.dart'
+    as Aboutusscreen;
 import 'package:awomowa/vendormodule/screens/active_offer_details.dart';
 import 'package:awomowa/vendormodule/screens/approval_screen.dart';
 import 'package:awomowa/vendormodule/screens/color_picker_screen.dart';
@@ -77,8 +78,6 @@ import 'package:awomowa/vendormodule/screens/payment_success_screen.dart';
 import 'package:awomowa/vendormodule/screens/publish_success_screen.dart';
 import 'package:awomowa/vendormodule/screens/reset_password_screen.dart'
     as Resetpassword;
-
-
 import 'package:awomowa/vendormodule/screens/scheduler/scheduler_provider.dart';
 import 'package:awomowa/vendormodule/screens/scheduler/scheduler_screen.dart';
 import 'package:awomowa/vendormodule/screens/scheduler/scheduler_tabs/appointments/appointments_tab.dart';
@@ -117,6 +116,8 @@ void getCurrentAppTheme() async {
 
 class _AwomowaState extends State<Awomowa> {
   FirebaseMessaging messaging;
+  String true1 = "user";
+  SharedPrefManager prefManger = SharedPrefManager();
   // AndroidNotificationChannel channel;
   // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   setupNotification() async {
@@ -215,6 +216,7 @@ class _AwomowaState extends State<Awomowa> {
   void initState() {
     setupNotification();
     getCurrentAppTheme();
+
     super.initState();
   }
 
@@ -302,14 +304,36 @@ class _AwomowaState extends State<Awomowa> {
         builder: (BuildContext context, value, Widget child) {
           return Sizer(
             builder: (context, orientation, deviceType) {
-              return MaterialApp(
+              return
+                  /* Consumer<LoginProvider>(
+                builder: (BuildContext context, value, Widget child) =>*/
+                  MaterialApp(
                 navigatorKey: navigatorKey,
                 themeMode: themeChangeProvider.darkTheme
                     ? ThemeMode.dark
                     : ThemeMode.light,
                 theme: AppTheme.light(),
                 darkTheme: AppTheme.dark(),
+
                 home: SplashScreen(),
+                /*prefManger.re == "user"
+                    ? SplashScreen()
+                    : prefManger.res == "merchant"
+
+                        ? Splashscreen.SplashScreen()
+                        : HomeScreen(),*/
+                //true1 == "ganesh"
+                // LoginProvider().loginResponse.userInformations.userType ==
+                //         "user"
+
+                //true1 == "ganesh"
+                // prefManger.getEmail().toString() == "sds"
+                //     ? SplashScreen()
+                //     : Splashscreen.SplashScreen(),
+                //prefManger.getLoggedIn()
+
+                //: Splashscreen.SplashScreen(),
+
                 routes: {
                   Login.LoginScreen.routeName: (context) => Login.LoginScreen(),
                   RegisterScreen.routeName: (context) => RegisterScreen(),
@@ -336,6 +360,7 @@ class _AwomowaState extends State<Awomowa> {
                   PackageScreen.routeName: (context) => PackageScreen(),
                   Vendorlogin.LoginScreen.routeName: (context) =>
                       Vendorlogin.LoginScreen(),
+
                   vendorsignup.SignUpScreen.routeName: (context) =>
                       vendorsignup.SignUpScreen(),
                   //SignUpScreen.routeName: (context) => SignUpScreen(),
@@ -347,7 +372,8 @@ class _AwomowaState extends State<Awomowa> {
                   Vendor.HomeScreen.routeName: (context) => Vendor.HomeScreen(),
                   Vendorshopdetail.ShopDetails.routeName: (context) =>
                       Vendorshopdetail.ShopDetails(),
-                Aboutusscreen.AboutUs.routeName: (context) => Aboutusscreen.AboutUs(),
+                  Aboutusscreen.AboutUs.routeName: (context) =>
+                      Aboutusscreen.AboutUs(),
                   NewOfferScreen.routeName: (context) => NewOfferScreen(),
                   PublishSuccessScreen.routeName: (context) =>
                       PublishSuccessScreen(),
@@ -375,6 +401,7 @@ class _AwomowaState extends State<Awomowa> {
                   CalendarTab.routeName: (context) => CalendarTab()
                 },
               );
+              // );
             },
           );
         },

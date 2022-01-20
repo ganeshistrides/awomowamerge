@@ -7,19 +7,24 @@ class SharedPrefManager {
   static const USER_NAME = "username";
   static const GENDER = "gender";
   static const DOB = "dateofbirth";
-  static const EMAIL = "email";
+  static const EMAIL = "email1";
+  var re, res;
   static const MOBILENUMBER = "mobilenm";
   static const PIC = "pic";
   static const ISNEWNOTIFICATIONCAME = "isnewnoticc";
   static bool isNewNotified = false;
-  static const ACCESS = "CUSTROMER";
+  static const ACCESS = "user1";
+  static const CUSTOMERROLE = "customerrole";
+
   setDarkTheme(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     prefs.setBool(THEME_STATUS, value);
   }
 
   Future<bool> getTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     return prefs.getBool(THEME_STATUS) ?? false;
   }
 
@@ -70,7 +75,8 @@ class SharedPrefManager {
 
   Future<String> getCustomer() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(ACCESS) ?? 'CUSTOMER';
+    return re = prefs.getString(ACCESS) ?? '';
+//    return prefs.getString(ACCESS) ?? '';
   }
 
   Future<void> logout() async {
@@ -142,30 +148,28 @@ class SharedPrefManager {
   static bool VENDOR_isNewNotified = false;
 
   static const VENDOR_ISALLOWTORENEW = "vendorallowtorenew";
-  static const ACCESSVENDOR = "vendor";
+  static const ACCESSVENDOR = "merchant";
 
   setvendorAuthKey(String authKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     prefs.setString(VENDOR_AUTH_KEY, authKey);
   }
 
-  Future<String> getvendorAuthKey() async {
+  setVendor(String merchant) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(VENDOR_AUTH_KEY) ?? null;
-  }
-
-  setVendor(String vendor) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(ACCESSVENDOR, vendor);
+    prefs.setString(ACCESSVENDOR, merchant);
   }
 
   Future<String> getVendor() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(ACCESSVENDOR) ?? 'VENDOR';
+    return res = prefs.getString(ACCESSVENDOR) ?? '';
+//    return prefs.getString(ACCESS) ?? '';
   }
 
   setIsSubscribed(bool isSubscribed) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     prefs.setBool(VENDOR_IS_SUBSCRIPTION_ACTIVE, isSubscribed ?? false);
   }
 
@@ -176,7 +180,7 @@ class SharedPrefManager {
 
   setRemainingDays(String days) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(days);
+
     prefs.setInt(VENDOR_SUBS_REMAINING_DAYS, int.parse(days) ?? 0);
   }
 
@@ -187,6 +191,7 @@ class SharedPrefManager {
 
   setAllowToRenewal(bool allow) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     prefs.setBool(VENDOR_ISALLOWTORENEW, allow);
   }
 
@@ -197,6 +202,7 @@ class SharedPrefManager {
 
   setShopName(String name) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     prefs.setString(VENDOR_SHOP_NAME, name);
   }
 
@@ -207,6 +213,7 @@ class SharedPrefManager {
 
   setShopCategory(String url) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     prefs.setString(VENDOR_CATEGORY, url);
   }
 
@@ -217,6 +224,7 @@ class SharedPrefManager {
 
   setShopLogo(String category) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     prefs.setString(VENDOR_CATEGORY, category);
   }
 
@@ -232,6 +240,7 @@ class SharedPrefManager {
 
   setVendorEmail(String name) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     prefs.setString(VENDOR_EMAIL, name);
   }
 
@@ -242,6 +251,7 @@ class SharedPrefManager {
 
   setVendorMobile(String mobile) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     prefs.setString(VENDOR_MOBILENUMBER, mobile);
   }
 

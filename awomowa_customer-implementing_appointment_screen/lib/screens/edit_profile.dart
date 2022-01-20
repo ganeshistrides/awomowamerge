@@ -27,6 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List<bool> selectedGender = [false, false, false];
   SharedPrefManager prefManager = SharedPrefManager();
   String strProfileImg = '';
+  String role="customer";
   TextEditingController nameController = new TextEditingController();
   TextEditingController emailIdController = new TextEditingController();
   TextEditingController mobileNoController = new TextEditingController();
@@ -39,6 +40,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     mobileNoController.text = await prefManager.getMobile();
     dateOfBirthController.text = await prefManager.getDob();
     strProfileImg = await prefManager.getProfilePic();
+    role=await prefManager.getCustomer();
+
     if (strProfileImg.isNotEmpty) {
       isImagePicked = true;
     }

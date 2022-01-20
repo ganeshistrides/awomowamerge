@@ -1,9 +1,9 @@
 class OfferListResponse {
   String status;
   String message;
-  
+
   List<Histories> histories;
-  String  nextPageNo;
+  String nextPageNo;
 //OfferListResponse({this.nextPageNo});
   OfferListResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -14,10 +14,7 @@ class OfferListResponse {
         histories.add(new Histories.fromJson(v));
       });
     }
-      nextPageNo=json["nextPageNo"];
-
-    
-
+    nextPageNo = json["nextPageNo"];
   }
 
   Map<String, dynamic> toJson() {
@@ -27,7 +24,7 @@ class OfferListResponse {
     if (this.histories != null) {
       data['histories'] = this.histories.map((v) => v.toJson()).toList();
     }
-   data["nextPageNo"]=this.nextPageNo;
+    data["nextPageNo"] = this.nextPageNo;
     return data;
   }
 }

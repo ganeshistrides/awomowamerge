@@ -41,6 +41,7 @@ class VendorDetailsProvider extends ChangeNotifier {
 
     if (vendorDetailsResponse.status == 'success') {
       SharedPrefManager prefManger = SharedPrefManager();
+      prefManger.setVendorLoggedIn(true);
       prefManger
           .setVendorEmail(vendorDetailsResponse.merchantInformations.shopMailId);
       prefManger.setVendorMobile(

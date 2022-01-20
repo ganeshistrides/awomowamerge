@@ -67,7 +67,7 @@ class UserInformations {
     address = json['address'];
     gender = json['gender'];
     createdAt = json['createdAt'];
-    userType = json['userType'];
+    userType = json['userType'] ?? "user";
     profileImage = json['profileImage'];
   }
 
@@ -84,7 +84,7 @@ class UserInformations {
     data['address'] = this.address;
     data['gender'] = this.gender;
     data['createdAt'] = this.createdAt;
-    data['userType'] = this.userType;
+    data['userType'] = this.userType ?? "user";
     data['profileImage'] = this.profileImage;
     return data;
   }

@@ -4,15 +4,14 @@ import 'package:awomowa/screens/error_screen.dart';
 import 'package:awomowa/screens/forgot_password_screen.dart';
 import 'package:awomowa/screens/home_screen.dart';
 import 'package:awomowa/screens/register_screen.dart';
-import 'package:awomowa/vendormodule/reponse_models/login_response.dart';
 import 'package:awomowa/utils/SharedPreferences.dart';
+import 'package:awomowa/vendormodule/screens/login_screen.dart' as Vendorlogin;
 //import 'package:awomowa/vendormodule/import_barrel.dart';
 import 'package:awomowa/widgets/loader_button.dart';
 import 'package:awomowa/widgets/login_screen_bg.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:awomowa/vendormodule/screens/login_screen.dart' as Vendorlogin;
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
@@ -180,27 +179,53 @@ class LoginScreen extends StatelessWidget {
                                 btnTxt: 'Sign in',
                                 isLoading: loginProvider.isLoading,
                               ),
-                                
                               SizedBox(
                                 height: 16.0,
                               ),
-                                Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:<Widget>[
-                                           InkWell(
-                                    onTap: () {
-                                     Navigator.pushNamed(context,
-                                         Vendorlogin.LoginScreen.routeName);                                    },
-                                    child: Text(
-                                      ' Vendor Login',
-                                      style: TextStyle(
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    TextButton.icon(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context,
+                                              Vendorlogin
+                                                  .LoginScreen.routeName);
+                                        },
+                                        icon: Icon(
+                                          Icons.account_circle,
                                           color: AppTheme.themeColor,
-                                          decoration: TextDecoration.underline,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                  )
-                                ]
-                              ),
+                                        ),
+                                        label: Text(
+                                          "Business Login",
+                                          style: TextStyle(
+                                              color: AppTheme.themeColor),
+                                        )),
+                                    /*IconButton(
+                                        icon: Icon(Icons.account_circle),
+                                        label: Text('Contact me'),
+                                        color: AppTheme.themeColor,
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context,
+                                              Vendorlogin
+                                                  .LoginScreen.routeName);
+                                        }),*/
+                                    /*      InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(context,
+                                            Vendorlogin.LoginScreen.routeName);
+                                      },
+                                      child: Text(
+                                        ' Vendor Login',
+                                        style: TextStyle(
+                                            color: AppTheme.themeColor,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                    )*/
+                                  ]),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -251,14 +276,19 @@ class LoginScreen extends StatelessWidget {
 
     if (loginProvider.loginResponse.status == 'success') {
       SharedPrefManager prefManger = SharedPrefManager();
-      prefManger.setCustomer("customer");
+      prefManger
+          .setCustomer(loginProvider.loginResponse.userInformations.userType);
+
       prefManger
           .setAuthKey(loginProvider.loginResponse.userInformations.authKey);
       prefManger
           .setUsername(loginProvider.loginResponse.userInformations.firstName);
       prefManger.setLoggedIn(true);
+
+      //  print(prefManger.setLoggedIn(true) + "check".toString());
       prefManger.setGender(loginProvider.loginResponse.userInformations.gender);
       prefManger.setDob(loginProvider.loginResponse.userInformations.dob);
+
       prefManger.setEmail(loginProvider.loginResponse.userInformations.mailId);
       prefManger.setMobile(
           loginProvider.loginResponse.userInformations.contactNumber);

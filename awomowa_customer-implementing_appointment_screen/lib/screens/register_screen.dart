@@ -338,19 +338,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(context,
-                                          Vendorsignup.SignUpScreen.routeName);
-                                    },
-                                    child: Text(
-                                      ' Vendor Signup',
-                                      style: TextStyle(
-                                          color: AppTheme.themeColor,
-                                          decoration: TextDecoration.underline,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                  )
+                                  TextButton.icon(
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          Vendorsignup.SignUpScreen.routeName,
+                                        );
+                                      },
+                                      icon: Icon(
+                                        Icons.account_circle,
+                                        color: AppTheme.themeColor,
+                                      ),
+                                      label: Text(
+                                        "Business Signup",
+                                        style: TextStyle(
+                                            color: AppTheme.themeColor),
+                                      )),
+                                  // InkWell(
+                                  //   onTap: () {
+                                  //     Navigator.pushNamed(context,
+                                  //         Vendorsignup.SignUpScreen.routeName);
+                                  //   },
+                                  //   child: Text(
+                                  //     ' Vendor Signup',
+                                  //     style: TextStyle(
+                                  //         color: AppTheme.themeColor,
+                                  //         decoration: TextDecoration.underline,
+                                  //         fontWeight: FontWeight.w800),
+                                  //   ),
+                                  // )
                                 ]),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,

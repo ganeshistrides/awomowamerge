@@ -1,6 +1,8 @@
+import 'package:awomowa/utils/SharedPreferences.dart';
 import 'package:awomowa/vendormodule/import_barrel.dart';
 
 class SplashScreen extends StatefulWidget {
+  static const routeName = 'vendorsplashscreen';
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -16,9 +18,14 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
 
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(milliseconds: 2000), () async {
+      SharedPrefManager prefManger = SharedPrefManager();
+
       checkLoginStatus();
     });
+    // Timer(Duration(seconds: 2), () {
+    //   checkLoginStatus();
+    // });
     super.initState();
 
     showSnackBar(String message, BuildContext context) {
@@ -29,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<VendorDetailsProvider>(
+    /*return Consumer<VendorDetailsProvider>(
       builder: (BuildContext context,
           VendorDetailsProvider vendorDetailsProvider, Widget child) {
         return Scaffold(
@@ -67,9 +74,8 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         );
       },
-    );
+    );*/
   }
-
   Future<void> checkLoginStatus() async {
     VendorDetailsProvider vendorDetailsProvider =
         Provider.of<VendorDetailsProvider>(context, listen: false);
