@@ -1,13 +1,14 @@
+import 'package:awomowa/screens/shop_offers_screen.dart';
 import 'package:awomowa/vendormodule/import_barrel.dart';
 import 'package:awomowa/vendormodule/screens/edit_shop_info_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:flutter/services.dart';
 import 'package:open_file/open_file.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:path/path.dart' as path;
 import 'package:url_launcher/url_launcher.dart';
 
 class ShopDetails extends StatefulWidget {
@@ -205,7 +206,36 @@ class _ShopDetailsState extends State<ShopDetails> {
                                                   child: Container(
                                                     height: 150.0,
                                                     width: 150.0,
-                                                    child: Image.network(
+                                                    child: GestureDetector(
+                                                      child: Hero(
+                                                        tag: 'anything' +
+                                                            ('${vendorDetailsProvider.vendorDetailsResponse.merchantInformations.shopLogo}'),
+                                                        child: CircleAvatar(
+                                                          backgroundImage:
+                                                              ('${shop.shopLogo}') !=
+                                                                      null
+                                                                  ? NetworkImage(
+                                                                      '${shop.shopLogo}')
+                                                                  : null,
+                                                          radius: 23,
+                                                        ),
+                                                      ),
+                                                      onTap: () =>
+                                                          Navigator.of(context)
+                                                              .push(
+                                                        PageRouteBuilder(
+                                                            pageBuilder: (context,
+                                                                    animation,
+                                                                    secondaryAnimation) =>
+                                                                imageview(
+                                                                  image:
+                                                                      ('${shop.shopLogo}'),
+                                                                  productname:
+                                                                      ('${shop.shopLogo}'),
+                                                                )),
+                                                      ),
+                                                    ),
+                                                    /*Image.network(
                                                       '${shop.shopLogo}',
                                                       fit: BoxFit.fill,
                                                     ),
@@ -214,7 +244,7 @@ class _ShopDetailsState extends State<ShopDetails> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(
-                                                                    50.0)),
+                                                                    50.0)),*/
                                                   ),
                                                 ),
                                               ),
@@ -250,8 +280,6 @@ class _ShopDetailsState extends State<ShopDetails> {
                                           'Download personalised poster for your shop'),
                                     ),
                                   )),
-
-
                                   Card(
                                       child: InkWell(
                                     onTap: () {
@@ -277,7 +305,6 @@ class _ShopDetailsState extends State<ShopDetails> {
                                           'Download business card for your shop'),
                                     ),
                                   )),
-
                                   Card(
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -1289,10 +1316,12 @@ class _ShopDetailsState extends State<ShopDetails> {
                                                   primary: AppTheme.themeColor,
                                                   elevation: 0),
                                               onPressed: () {
-                                                Share.share(vendorDetailsProvider
-                                                    .vendorDetailsResponse
-                                                    .merchantInformations
-                                                    .referenceCodeShareContent);
+                                                Share.share(
+                                                  vendorDetailsProvider
+                                                      .vendorDetailsResponse
+                                                      .merchantInformations
+                                                      .referenceCodeShareContent,
+                                                );
                                               },
                                               child: Padding(
                                                 padding:

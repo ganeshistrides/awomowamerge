@@ -6,13 +6,12 @@ import 'package:awomowa/screens/shop_offers_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
-
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
+
 import 'offers_screen.dart';
 
 class OfferDetails extends StatefulWidget {
@@ -92,7 +91,6 @@ class _OfferDetailsState extends State<OfferDetails> {
 class OfferDetailsCard extends StatefulWidget {
   final OfferStores offer;
   final OfferDetailsProvider offerDetailsProvider;
-  
 
   const OfferDetailsCard({this.offer, this.offerDetailsProvider});
 
@@ -102,8 +100,8 @@ class OfferDetailsCard extends StatefulWidget {
 
 class _OfferDetailsCardState extends State<OfferDetailsCard> {
   bool isLiked;
- final BaseCacheManager baseCacheManager = DefaultCacheManager();
- 
+  final BaseCacheManager baseCacheManager = DefaultCacheManager();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -114,31 +112,23 @@ class _OfferDetailsCardState extends State<OfferDetailsCard> {
             children: [
               Column(
                 children: [
-                 GestureDetector(
-                       
-                    
-                    child:  Hero(
-                        tag: 'anything' + ('${widget.offer.imageUrl}'),
+                  GestureDetector(
+                    child: Hero(
+                      tag: 'anything' + ('${widget.offer.imageUrl}'),
                       child: Image.network(
-                            '${widget.offer.imageUrl}',
-                            height: MediaQuery.of(context).size.height * 0.2,
-                    width: MediaQuery.of(context).size.height * 0.2,
-                            ),
+                        '${widget.offer.imageUrl}',
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.height * 0.2,
+                      ),
                     ),
-                     onTap:()=>
-                
-                      
-                                    Navigator.of(context).push (
-                    PageRouteBuilder(
-                      pageBuilder: (
-                          context,animation,secondaryAnimation
-                    )=> imageview(
-                                image:('${widget.offer.imageUrl}'
-                                ),
-                              )
-                  
+                    onTap: () => Navigator.of(context).push(
+                      PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  imageview(
+                                    image: ('${widget.offer.imageUrl}'),
+                                  )),
                     ),
-                                    ),
                   ),
                   SizedBox(
                     height: 16.0,
@@ -310,21 +300,22 @@ class _OfferDetailsCardState extends State<OfferDetailsCard> {
                                 onPressed: () {
                                   //  Share.share(
                                   //      widget.offer.referenceCodeShareContent);
-                                baseCacheManager
-                                .getFile(widget.offer.broadcastSharingImage)
+                                  baseCacheManager
+                                      .getFile(
+                                          widget.offer.broadcastSharingImage)
 //.getFile("http://via.placeholder.com/350x150")
-        .first
-        .then((info) {
-          info.file.readAsBytes().then((bytes) {
-            WcFlutterShare.share(
-              sharePopupTitle: 'share',
-              fileName: 'share.png',
-              text:widget.offer.referenceCodeShareContent,
-              mimeType: 'image/png',
-              bytesOfFile: bytes);
-            });
-          });
-                                
+                                      .first
+                                      .then((info) {
+                                    info.file.readAsBytes().then((bytes) {
+                                      WcFlutterShare.share(
+                                          sharePopupTitle: 'share',
+                                          fileName: 'share.png',
+                                          text: widget
+                                              .offer.referenceCodeShareContent,
+                                          mimeType: 'image/png',
+                                          bytesOfFile: bytes);
+                                    });
+                                  });
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(14.0),

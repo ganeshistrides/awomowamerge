@@ -1,6 +1,7 @@
 import 'package:awomowa/model/ManageStoresProvider.dart';
 import 'package:awomowa/model/OfferListProvider.dart';
 import 'package:awomowa/responsemodels/manage_stores_response.dart';
+import 'package:awomowa/screens/shop_offers_screen.dart';
 import 'package:awomowa/utils/app_constants.dart';
 import 'package:awomowa/widgets/loader_button.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +130,36 @@ class _ManageShopDetailsScreenState extends State<ManageShopDetailsScreen> {
                                                   child: Container(
                                                     height: 150.0,
                                                     width: 150.0,
-                                                    child: Image.network(
+                                                    child: GestureDetector(
+                                                      child: Hero(
+                                                        tag: 'anything' +
+                                                            ('${widget.shop.shopLogo}'),
+                                                        child: CircleAvatar(
+                                                          backgroundImage:
+                                                              ('${widget.shop.shopLogo}') !=
+                                                                      null
+                                                                  ? NetworkImage(
+                                                                      '${widget.shop.shopLogo}')
+                                                                  : null,
+                                                          radius: 23,
+                                                        ),
+                                                      ),
+                                                      onTap: () =>
+                                                          Navigator.of(context)
+                                                              .push(
+                                                        PageRouteBuilder(
+                                                            pageBuilder: (context,
+                                                                    animation,
+                                                                    secondaryAnimation) =>
+                                                                imageview(
+                                                                  image:
+                                                                      ('${widget.shop.shopLogo}'),
+                                                                  productname:
+                                                                      ('${widget.shop.shopLogo}'),
+                                                                )),
+                                                      ),
+                                                    ),
+                                                    /* Image.network(
                                                       '${widget.shop.shopLogo}',
                                                       fit: BoxFit.fill,
                                                     ),
@@ -138,7 +168,7 @@ class _ManageShopDetailsScreenState extends State<ManageShopDetailsScreen> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(
-                                                                    50.0)),
+                                                                    50.0)),*/
                                                   ),
                                                 ),
                                               ),

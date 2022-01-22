@@ -1,11 +1,9 @@
 import 'package:awomowa/app/theme.dart';
 import 'package:awomowa/model/DarkThemeProvider.dart';
+import 'package:awomowa/screens/shop_offers_screen.dart';
 import 'package:awomowa/vendormodule/reponse_models/offer_list_response.dart';
 
-
-
 import '../import_barrel.dart';
-
 
 class ActiveOfferDetails extends StatelessWidget {
   static const routeName = 'vendoractiveOfferDetails';
@@ -57,6 +55,30 @@ class ActiveOfferDetails extends StatelessWidget {
                             Stack(
                               children: [
                                 Center(
+                                  child: GestureDetector(
+                                    child: Hero(
+                                      tag: 'anything' + ('${offer.imageUrl}'),
+                                      child: Image.network(
+                                        '${offer.imageUrl}',
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                        width:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                      ),
+                                    ),
+                                    onTap: () => Navigator.of(context).push(
+                                      PageRouteBuilder(
+                                          pageBuilder: (context, animation,
+                                                  secondaryAnimation) =>
+                                              imageview(
+                                                image: ('${offer.imageUrl}'),
+                                              )),
+                                    ),
+                                  ),
+                                ),
+                                /*  Center(
                                   child: Image.network(
                                     '${offer.imageUrl}',
                                     height: MediaQuery.of(context).size.height *
@@ -64,7 +86,7 @@ class ActiveOfferDetails extends StatelessWidget {
                                     width: MediaQuery.of(context).size.height *
                                         0.2,
                                   ),
-                                ),
+                                ),*/
                                 Align(
                                   alignment: Alignment.topRight,
                                   child: Container(

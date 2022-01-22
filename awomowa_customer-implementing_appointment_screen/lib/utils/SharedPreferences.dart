@@ -146,7 +146,6 @@ class SharedPrefManager {
   static const VENDOR_IS_SUBSCRIPTION_ACTIVE = "vendorSUBSACTIVE";
   static const VENDOR_SUBS_REMAINING_DAYS = "vendorREMAININGDAYS";
   static bool VENDOR_isNewNotified = false;
-
   static const VENDOR_ISALLOWTORENEW = "vendorallowtorenew";
   static const ACCESSVENDOR = "merchant";
 

@@ -330,7 +330,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 }
                               },
                               isLoading: signUpProvider.isLoading,
-                              btnTxt: 'Sign up',
+                              btnTxt: 'Sign Up',
                             ),
                             SizedBox(
                               height: 16.0,

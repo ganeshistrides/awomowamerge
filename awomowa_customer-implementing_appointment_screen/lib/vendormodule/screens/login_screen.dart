@@ -8,7 +8,7 @@ class LoginScreen extends StatelessWidget {
   static const routeName = 'vendorloginScreen';
   final TextEditingController mobileNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  String role = "vendor";
+
   final _formKey = GlobalKey<FormState>();
 
   showSnackBar(String message, BuildContext context) {
@@ -182,7 +182,21 @@ class LoginScreen extends StatelessWidget {
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    InkWell(
+                                    TextButton.icon(
+                                        onPressed: () {
+                                          Navigator.pushNamed(context,
+                                              Login.LoginScreen.routeName);
+                                        },
+                                        icon: Icon(
+                                          Icons.group,
+                                          color: AppTheme.themeColor,
+                                        ),
+                                        label: Text(
+                                          "Customer Login",
+                                          style: TextStyle(
+                                              color: AppTheme.themeColor),
+                                        )),
+                                    /*     InkWell(
                                       onTap: () {
                                         Navigator.pushNamed(context,
                                             Login.LoginScreen.routeName);
@@ -191,12 +205,12 @@ class LoginScreen extends StatelessWidget {
                                         'Customer Login',
                                         style: TextStyle(
                                             color: AppTheme.themeColor,
-                                            /*decoration:
+                                            */ /*decoration:
                                               //  TextDecoration.underline,
-                                           // fontWeight: FontWeight.w800*/
+                                           // fontWeight: FontWeight.w800*/ /*
                                         ),
                                       ),
-                                    )
+                                    )*/
                                   ]),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -251,27 +265,22 @@ class LoginScreen extends StatelessWidget {
 
       if (loginProvider.loginResponse.merchantInformations.registrationStatus ==
           'registrationCompleted') {
-        print("gaesh sucess1");
         //await prefManger.setVendor(true);
-    prefManger.setVendorLoggedIn(true);
+        prefManger.setVendorLoggedIn(true);
 
         await prefManger.setVendor(
             loginProvider.loginResponse.merchantInformations.userType);
-        print(loginProvider.loginResponse.merchantInformations.userType +
-            "ganeshjshdj");
+
         await prefManger.setShopCategory(
             loginProvider.loginResponse.merchantInformations.shopCategoryName);
-        print(
-            loginProvider.loginResponse.merchantInformations.shopCategoryName +
-                "ganeshjshdj");
+
         await prefManger.setShopLogo(
             loginProvider.loginResponse.merchantInformations.shopLogo);
         await prefManger.setShopName(
             loginProvider.loginResponse.merchantInformations.shopName);
         await prefManger.setAuthKey(
             loginProvider.loginResponse.merchantInformations.authKey);
-        print(loginProvider.loginResponse.merchantInformations.authKey +
-            "ganeshjshdj");
+
         // Navigator.pushAndRemoveUntil<dynamic>(
         //   context,
         //   MaterialPageRoute<dynamic>(
@@ -306,7 +315,6 @@ class LoginScreen extends StatelessWidget {
       } else if (loginProvider
               .loginResponse.merchantInformations.registrationStatus ==
           'shopProfileCompleted') {
-        print("gaesh sucess3");
         prefManger.setVendorLoggedIn(true);
         await prefManger.setShopName(
             loginProvider.loginResponse.merchantInformations.shopName);
@@ -331,7 +339,6 @@ class LoginScreen extends StatelessWidget {
       } else if (loginProvider
               .loginResponse.merchantInformations.registrationStatus ==
           'adminDeclined') {
-        print("gaesh sucess4");
         prefManger.setVendorLoggedIn(true);
         Navigator.pushReplacement(
           context,

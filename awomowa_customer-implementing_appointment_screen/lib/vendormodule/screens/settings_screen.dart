@@ -1,9 +1,13 @@
 import 'package:awomowa/model/DarkThemeProvider.dart';
+import 'package:awomowa/screens/shop_offers_screen.dart';
 import 'package:awomowa/vendormodule/import_barrel.dart';
 import 'package:awomowa/vendormodule/providers/LoginProvider.dart'
     as Loginprovider;
-import 'package:awomowa/vendormodule/screens/shop_details_screen.dart' as Vendorshopdetail;
-import 'package:awomowa/vendormodule/screens/about_us _screen.dart' as Aboutusscreen;
+import 'package:awomowa/vendormodule/screens/about_us _screen.dart'
+    as Aboutusscreen;
+import 'package:awomowa/vendormodule/screens/shop_details_screen.dart'
+    as Vendorshopdetail;
+
 class SettingsScreen extends StatefulWidget {
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
@@ -161,7 +165,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     // Divider(),
                     SettingsItem(
                       onTap: () {
-                        Navigator.pushNamed(context, Aboutusscreen.AboutUs.routeName);
+                        Navigator.pushNamed(
+                            context, Aboutusscreen.AboutUs.routeName);
                       },
                       title: 'About Us',
                       icon: Icons.info,
@@ -241,7 +246,8 @@ class ShopInfoCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (isClickable) {
-            Navigator.pushNamed(context, Vendorshopdetail.ShopDetails.routeName);
+            Navigator.pushNamed(
+                context, Vendorshopdetail.ShopDetails.routeName);
           }
         },
         child: Card(
@@ -306,13 +312,39 @@ class ShopInfoCard extends StatelessWidget {
                         child: Container(
                           height: 100.0,
                           width: 100.0,
-                          child: Image.network(
+                          child: GestureDetector(
+                            child: Hero(
+                              tag: 'anything' +
+                                  ('${vendorDetailsProvider.vendorDetailsResponse.merchantInformations.shopLogo}'),
+                              child: CircleAvatar(
+                                backgroundImage:
+                                    ('${vendorDetailsProvider.vendorDetailsResponse.merchantInformations.shopLogo}') !=
+                                            null
+                                        ? NetworkImage(
+                                            '${vendorDetailsProvider.vendorDetailsResponse.merchantInformations.shopLogo}')
+                                        : null,
+                                radius: 23,
+                              ),
+                            ),
+                            onTap: () => Navigator.of(context).push(
+                              PageRouteBuilder(
+                                  pageBuilder: (context, animation,
+                                          secondaryAnimation) =>
+                                      imageview(
+                                        image:
+                                            ('${vendorDetailsProvider.vendorDetailsResponse.merchantInformations.shopLogo}'),
+                                        productname:
+                                            ('${vendorDetailsProvider.vendorDetailsResponse.merchantInformations.shopLogo}'),
+                                      )),
+                            ),
+                          ),
+                          /*      Image.network(
                             '${vendorDetailsProvider.vendorDetailsResponse.merchantInformations.shopLogo}',
                             fit: BoxFit.fill,
                           ),
                           decoration: BoxDecoration(
                               color: Colors.red,
-                              borderRadius: BorderRadius.circular(50.0)),
+                              borderRadius: BorderRadius.circular(50.0)),*/
                         ),
                       ),
                     ),

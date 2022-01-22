@@ -1,33 +1,21 @@
-import 'dart:convert';
-import 'package:awomowa/responsemodels/shop_offers_response.dart';
-import 'package:awomowa/screens/home_screen.dart';
-import 'package:http/http.dart' as http;
 import 'package:awomowa/app/theme.dart';
 import 'package:awomowa/model/ShopOfferProvider.dart';
-
 import 'package:awomowa/responsemodels/manage_stores_response.dart'
     as ManageShopResponse;
-
-import 'package:awomowa/responsemodels/shop_offers_response.dart' as listviewpage;
+import 'package:awomowa/responsemodels/shop_offers_response.dart';
+import 'package:awomowa/screens/home_screen.dart';
 import 'package:awomowa/screens/manage_shop_details_screen.dart';
 import 'package:awomowa/screens/offer_details.dart';
 import 'package:awomowa/screens/offers_screen.dart';
 import 'package:awomowa/screens/update_details_screen.dart';
 import 'package:awomowa/utils/app_constants.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_svg/svg.dart';
-import 'package:incrementally_loading_listview/incrementally_loading_listview.dart';
 import 'package:provider/provider.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:shimmer/shimmer.dart';
-
 
 class ShopOffersScreen extends StatefulWidget {
   final String shopId;
   final int pageNumber;
-
 
   const ShopOffersScreen({this.shopId, this.pageNumber});
 
@@ -37,13 +25,12 @@ class ShopOffersScreen extends StatefulWidget {
 
 class _ShopOffersScreenState extends State<ShopOffersScreen>
     with SingleTickerProviderStateMixin {
-      bool isEnabled = true ;
+  bool isEnabled = true;
   TabController controller;
-   bool _isButtonDisabled;
- int _currentpage,previouspage,nextpage;
-final _controller = ScrollController();
+  bool _isButtonDisabled;
+  int _currentpage, previouspage, nextpage;
+  final _controller = ScrollController();
 
- 
   @override
   void initState() {
     super.initState();
@@ -54,14 +41,12 @@ final _controller = ScrollController();
 
     WidgetsBinding.instance.addPostFrameCallback((_) =>
         Provider.of<ShopOfferProvider>(context, listen: false)
-            .getShopOffers(widget.shopId,widget.pageNumber));
-            
-    
+            .getShopOffers(widget.shopId, widget.pageNumber));
   }
 
   @override
   Widget build(BuildContext context) {
-   bool isEnabled = false;
+    bool isEnabled = false;
     return Consumer<ShopOfferProvider>(
       builder: (BuildContext context, ShopOfferProvider shopOfferProvider,
           Widget child) {
@@ -130,8 +115,6 @@ final _controller = ScrollController();
                             ),
                           ),
                         ),
-                       
-              
                         Expanded(
                           child: TabBarView(
                             controller: controller,
@@ -160,7 +143,7 @@ final _controller = ScrollController();
                                           physics:
                                               NeverScrollableScrollPhysics(),
                                           itemBuilder: (ctx, index) {
-                                             return ShopOfferItem(
+                                            return ShopOfferItem(
                                               offer: shopOfferProvider
                                                   .shopOffersResponse
                                                   .activeOffers[index],
@@ -174,92 +157,118 @@ final _controller = ScrollController();
                                               .activeOffers
                                               .length,
                                         ),
-                                       Row(
-                                         mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                         children: <Widget>[
-                                          Column(
-                                            children: <Widget>[
-                                              Container(
-                                                 width: 130.0,
-                                                child: OutlinedButton.icon(
-                                                  
-                                                                              onPressed: (){
-                                                                              setState(() {
-                                                            int prvPage  = int.parse(shopOfferProvider.shopOffersResponse.activePreviousPageNo.toString());
-                                                   if(prvPage!=0){
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) => ShopOffersScreen(
-                                                          shopId: widget.shopId,
-                                                          pageNumber: prvPage,
-                                                        ),
-                                                      ));
-                                                   }else{
-                                                  //     _isButtonDisabled = true;
-                                                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                     content: Text("No more data to load!"),));
-                                                   }
-                                                                              });
-                                                                            },
-                                                                            
-                                                                             icon: Icon(Icons.arrow_left),
-                                                                              label: Text("PREVIOUS")),
-                                              ),
-                                            ],
-                                          ) ,
-                                          Column(
-                                            children: <Widget>[
-                                               Container(
-                                     width: 60.0,
-                                  child: Text(shopOfferProvider.shopOffersResponse.activePageResponse.toString(),
-                                  textAlign:TextAlign.center,
-                                  style: TextStyle(
-                                    //fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),),
-                                ),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: <Widget>[
-                                              Container(
-                                                width: 130.0,
-                                                child: OutlinedButton.icon(
-                                                                              onPressed: (){
-                                                                              setState(() {
-                                    int nxtPage  = int.parse(shopOfferProvider.
-                                    shopOffersResponse.activeNextPageNo.toString());
-                                                   if(nxtPage!=0){
-                                                   Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) => ShopOffersScreen(
-                                                          shopId: widget.shopId,
-                                                          pageNumber: nxtPage,
-                                                        ),
-                                                         )
-                                                      
-                                                      );
-                                                   }else{
-                                                   isEnabled = false;
-                                                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                     content: 
-                                                     Text("No more data to load!"),));
-                                                   }
-                                                                              });
-                                                                            },
-                                                                             icon: Icon(Icons.arrow_right),
-                                                                              label: Text("NEXT")),
-                                              ),
-                                            ],
-                                          ),
-
-                                         ],
-                                       ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Column(
+                                              children: <Widget>[
+                                                Container(
+                                                  width: 130.0,
+                                                  child: OutlinedButton.icon(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          int prvPage = int.parse(
+                                                              shopOfferProvider
+                                                                  .shopOffersResponse
+                                                                  .activePreviousPageNo
+                                                                  .toString());
+                                                          if (prvPage != 0) {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          ShopOffersScreen(
+                                                                    shopId: widget
+                                                                        .shopId,
+                                                                    pageNumber:
+                                                                        prvPage,
+                                                                  ),
+                                                                ));
+                                                          } else {
+                                                            //     _isButtonDisabled = true;
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                                    SnackBar(
+                                                              content: Text(
+                                                                  "No more data to load!"),
+                                                            ));
+                                                          }
+                                                        });
+                                                      },
+                                                      icon: Icon(
+                                                          Icons.arrow_left),
+                                                      label: Text("PREVIOUS")),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: <Widget>[
+                                                Container(
+                                                  width: 60.0,
+                                                  child: Text(
+                                                    shopOfferProvider
+                                                        .shopOffersResponse
+                                                        .activePageResponse
+                                                        .toString(),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      //fontWeight: FontWeight.bold,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: <Widget>[
+                                                Container(
+                                                  width: 130.0,
+                                                  child: OutlinedButton.icon(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          int nxtPage = int.parse(
+                                                              shopOfferProvider
+                                                                  .shopOffersResponse
+                                                                  .activeNextPageNo
+                                                                  .toString());
+                                                          if (nxtPage != 0) {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          ShopOffersScreen(
+                                                                    shopId: widget
+                                                                        .shopId,
+                                                                    pageNumber:
+                                                                        nxtPage,
+                                                                  ),
+                                                                ));
+                                                          } else {
+                                                            isEnabled = false;
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                                    SnackBar(
+                                                              content: Text(
+                                                                  "No more data to load!"),
+                                                            ));
+                                                          }
+                                                        });
+                                                      },
+                                                      icon: Icon(
+                                                          Icons.arrow_right),
+                                                      label: Text("NEXT")),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                    
                               shopOfferProvider.isUpdateEmpty
                                   ? EmptyState(
                                       title: 'No updates found',
@@ -301,24 +310,22 @@ final _controller = ScrollController();
                             ],
                           ),
                         ),
-                        
                       ],
                     ),
                   ));
       },
     );
-    
   }
 }
- 
+
 class ShopOfferItem extends StatelessWidget {
   final ActiveOffers offer;
   final int index;
 
   const ShopOfferItem({this.offer, this.index});
+
   @override
   Widget build(BuildContext context) {
-    
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -330,7 +337,6 @@ class ShopOfferItem extends StatelessWidget {
               ),
             ));
       },
-       
       child: Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
@@ -346,36 +352,26 @@ class ShopOfferItem extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Row(
                   children: [
-                                GestureDetector(
-                                  child: Hero(
-                                                    tag: 'anything' + ('${offer.imageUrl}'),
-                                                          child: CircleAvatar(
-                                                             backgroundImage: ('${offer.imageUrl}')!= null
-                                  ?
-                                      NetworkImage('${offer.imageUrl}')
-                                   
-                                  : null,
-                                                            radius: 23,
-                                                          ),
-                                                            
-                                                    ),
-                                
-                          onTap:()=>
-              
-                    
-                                  Navigator.of(context).push (
-                  PageRouteBuilder(
-                    pageBuilder: (
-                        context,animation,secondaryAnimation
-                  )=> imageview(
-                              image:('${offer.imageUrl}'),
-                            productname:('${offer.productName}'
-                              ),
-                            )
-                
-                  ),
-                                  ),
-                ),
+                    GestureDetector(
+                      child: Hero(
+                        tag: 'anything' + ('${offer.imageUrl}'),
+                        child: CircleAvatar(
+                          backgroundImage: ('${offer.imageUrl}') != null
+                              ? NetworkImage('${offer.imageUrl}')
+                              : null,
+                          radius: 23,
+                        ),
+                      ),
+                      onTap: () => Navigator.of(context).push(
+                        PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    imageview(
+                                      image: ('${offer.imageUrl}'),
+                                      productname: ('${offer.productName}'),
+                                    )),
+                      ),
+                    ),
                     SizedBox(
                       width: 8.0,
                     ),
@@ -519,9 +515,9 @@ class ShopInfoCard extends StatelessWidget {
               onTap: () {
                 //Navigator.pop(context);
                 Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => HomeScreen()),
-  );
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
               },
               child: Container(
                 decoration:
@@ -624,7 +620,10 @@ class ShopInfoCard extends StatelessWidget {
                       ));
 
                   Provider.of<ShopOfferProvider>(context, listen: false)
-                      .getShopOffers(shop.storeId,shopOfferProvider.shopOffersResponse.activeCurrentPageNo);
+                      .getShopOffers(
+                          shop.storeId,
+                          shopOfferProvider
+                              .shopOffersResponse.activeCurrentPageNo);
                 },
                 child: Card(
                   margin: EdgeInsets.zero,
@@ -716,57 +715,48 @@ class ShopInfoCard extends StatelessWidget {
     );
   }
 }
+
 class imageview extends StatefulWidget {
- final image,productname;
-    
-    
-  imageview(
-      {this.image,this.productname});
+  final image, productname;
+
+  imageview({this.image, this.productname});
 
   @override
   _imageviewState createState() => _imageviewState();
 }
 
 class _imageviewState extends State<imageview> {
-    
   @override
   Widget build(BuildContext context) {
-    double width=MediaQuery.of(context).size.width;
-  double height=MediaQuery.of(context).size.height;
-      return MaterialApp(
-       
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return MaterialApp(
       // Scaffold Widget
       home: Scaffold(
-         appBar: AppBar(
-  leading: IconButton(
-    icon: Icon(Icons.arrow_back, color: Colors.black),
-    onPressed: () => Navigator.of(context).pop(),
-  ), 
-  //title:Text('${widget.productname}'),
-  
-),
-
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          //title:Text('${widget.productname}'),
+        ),
         body: Center(
           child: Container(
-       child:Hero(
-  tag: 'anything' + widget.image,
-                           
-                        child:ClipRRect(
-                              borderRadius:BorderRadius.circular(8.0),
-                              child:Image.network('${widget.image}',
-                               height: height/2,
-                               width: width,
-                              //fit:BoxFit.fill,
-                              ),
-                        ),
-
-
-       ),      
-                      ),
+            child: Hero(
+              tag: 'anything' + widget.image,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.network(
+                  '${widget.image}',
+                  height: height / 2,
+                  width: width,
+                  //fit:BoxFit.fill,
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
- 
   }
 }
-

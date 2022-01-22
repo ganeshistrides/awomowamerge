@@ -79,7 +79,7 @@ class LoginScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w600),
                             ),
                           ),
-                          FittedBox(
+                          /* FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
                               'Back !',
@@ -88,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                                   fontSize: 42.0,
                                   fontWeight: FontWeight.w600),
                             ),
-                          ),
+                          ),*/
                           Spacer(),
                         ],
                       ),

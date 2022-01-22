@@ -313,23 +313,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.pushNamed(
-                                                  context,
-                                                  customersignup.RegisterScreen
-                                                      .routeName);
-                                            },
-                                            child: Text(
-                                              ' Customer Sign up',
-                                              style: TextStyle(
+                                          TextButton.icon(
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                    context,
+                                                    customersignup
+                                                        .RegisterScreen
+                                                        .routeName);
+                                              },
+                                              icon: Icon(
+                                                Icons.group,
                                                 color: AppTheme.themeColor,
-                                                /*  decoration:
-                                                      TextDecoration.underline,
-                                                  fontWeight: FontWeight.w800*/
                                               ),
-                                            ),
-                                          )
+                                              label: Text(
+                                                "Customer Sign Up",
+                                                style: TextStyle(
+                                                    color: AppTheme.themeColor),
+                                              )),
                                         ]),
                                     Row(
                                       mainAxisAlignment:
@@ -424,7 +424,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           .setvendorAuthKey(signUpProvider.signUpResponse['authKey']);
       await prefManger.setVendorEmail(emailController.text);
       await prefManger.setVendorMobile(mobileNumberController.text);
-
+      await prefManger.setVendorLoggedIn(true);
       Provider.of<ActiveOfferListProvider>(context, listen: false)
           .getOfferList();
 

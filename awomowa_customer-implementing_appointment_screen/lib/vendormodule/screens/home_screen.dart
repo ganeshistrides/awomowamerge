@@ -3,6 +3,7 @@
 import 'package:awomowa/model/DarkThemeProvider.dart';
 import 'package:awomowa/vendormodule/import_barrel.dart';
 import 'package:awomowa/vendormodule/screens/new_offer.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:path_provider/path_provider.dart';
@@ -126,9 +127,14 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Settings'),
         ],
       ),
-      body: IndexedStack(
-        index: _selectedItem,
-        children: [OfferListScreen(), UpdatesListScreen(), SettingsScreen()],
+      body: DoubleBackToCloseApp(
+        snackBar: const SnackBar(
+          content: Text('Tap back again to leave'),
+        ),
+        child: IndexedStack(
+          index: _selectedItem,
+          children: [OfferListScreen(), UpdatesListScreen(), SettingsScreen()],
+        ),
       ),
     );
   }

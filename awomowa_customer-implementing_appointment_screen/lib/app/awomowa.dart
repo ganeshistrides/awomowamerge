@@ -116,8 +116,9 @@ void getCurrentAppTheme() async {
 
 class _AwomowaState extends State<Awomowa> {
   FirebaseMessaging messaging;
-  String true1 = "user";
+
   SharedPrefManager prefManger = SharedPrefManager();
+
   // AndroidNotificationChannel channel;
   // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   setupNotification() async {
@@ -314,26 +315,7 @@ class _AwomowaState extends State<Awomowa> {
                     : ThemeMode.light,
                 theme: AppTheme.light(),
                 darkTheme: AppTheme.dark(),
-
                 home: SplashScreen(),
-                /*prefManger.re == "user"
-                    ? SplashScreen()
-                    : prefManger.res == "merchant"
-
-                        ? Splashscreen.SplashScreen()
-                        : HomeScreen(),*/
-                //true1 == "ganesh"
-                // LoginProvider().loginResponse.userInformations.userType ==
-                //         "user"
-
-                //true1 == "ganesh"
-                // prefManger.getEmail().toString() == "sds"
-                //     ? SplashScreen()
-                //     : Splashscreen.SplashScreen(),
-                //prefManger.getLoggedIn()
-
-                //: Splashscreen.SplashScreen(),
-
                 routes: {
                   Login.LoginScreen.routeName: (context) => Login.LoginScreen(),
                   RegisterScreen.routeName: (context) => RegisterScreen(),

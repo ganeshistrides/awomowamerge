@@ -1,3 +1,4 @@
+import 'package:awomowa/screens/shop_offers_screen.dart';
 import 'package:awomowa/vendormodule/import_barrel.dart';
 import 'package:awomowa/vendormodule/reponse_models/offer_list_response.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
@@ -295,10 +296,30 @@ class OfferListItem extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Row(
                     children: [
-                      CircleAvatar(
+                      GestureDetector(
+                        child: Hero(
+                          tag: 'anything' + ('${offer.imageUrl}'),
+                          child: CircleAvatar(
+                            backgroundImage: ('${offer.imageUrl}') != null
+                                ? NetworkImage('${offer.imageUrl}')
+                                : null,
+                            radius: 23,
+                          ),
+                        ),
+                        onTap: () => Navigator.of(context).push(
+                          PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      imageview(
+                                        image: ('${offer.imageUrl}'),
+                                        productname: ('${offer.productName}'),
+                                      )),
+                        ),
+                      ),
+                      /* CircleAvatar(
                         backgroundColor: Colors.orange,
                         backgroundImage: NetworkImage('${offer.imageUrl}'),
-                      ),
+                      ),*/
                       SizedBox(
                         width: 8.0,
                       ),
